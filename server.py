@@ -8,6 +8,8 @@ host = socket.gethostname() # Get local machine name
 port = 1337	                # Reserve a port for your service.
 s.bind((host, port))        # Bind to the port
 
+print host					#print host
+
 s.listen(5)                 # Now wait for client connection.
 while True:
    c, addr = s.accept()     # Establish connection with client.
