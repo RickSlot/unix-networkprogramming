@@ -1,7 +1,7 @@
 unix-networkprogramming
 =======================
 
-vet cool dit haha, john is een flikker
+vet cool dit haha, rick is een flikker
 
 Links
 =======================
