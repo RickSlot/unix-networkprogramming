@@ -15,3 +15,7 @@ ssh: vagrant ssh
 ip: 192.168.56.101
 server name: dev.school
 path: /var/www/dev
+
+Dependencies:
+sudo apt-get install python-pcapy
+sudo apt-get install python-mysqldb
