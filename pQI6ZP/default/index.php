@@ -62,10 +62,39 @@
 							</th>
 						</tr>
 						</thead>
-						<tbody><?php include 'controller.php'; ?></tbody>
+						<tbody id="addHere"><?php include 'controller.php'; ?></tbody>
 					</table>
 				</div>
 			</div>
 		</div>
 	</body>
 </html>
+<script>
+var timestamp = 0;
+function getData() {
+	$.ajax({
+		type : 'Get',
+		url  : 'controller.php?timestamp=' + timestamp,
+		async : true,
+		cache : false,
+		
+		success : function(data) {
+					var json = eval('(' + data + ')');
+					data = json['data'];
+					timestamp  = json['timestamp'];
+					$('#addHere').prepend(data);
+					setTimeout('getData()', 1000);
+		},
+		error : function(XMLHttpRequest, textstatus, error) { 
+					alert(error);
+					setTimeout('getData()', 15000);
+		}		
+	});
+}
+
+$(function() {
+	getData();
+});
+
+// WHERE timestamp >= $_GET['timestamp']
+</script>
