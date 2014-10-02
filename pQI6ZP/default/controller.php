@@ -1,5 +1,4 @@
 <?php 
-// public function generate_table(){
 $con=mysqli_connect("localhost","root","123","sniffer");
 // Check connection
 if (mysqli_connect_errno()) {
@@ -22,4 +21,3 @@ while($row = mysqli_fetch_array($result)) {
 }
 
 mysqli_close($con);	
-// }
