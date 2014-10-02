@@ -16,6 +16,9 @@
 					<thead>
 						<tr>
 							<th>
+								<span>ID</span>
+							</th>
+							<th>
 								<span>Destination MAC</span>
 							</th>
 							<th>
