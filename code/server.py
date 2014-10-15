@@ -6,7 +6,7 @@ import sys
 import MySQLdb
 
 db = MySQLdb.connect(host="localhost", # your host, usually localhost
-                     user="root", # your username
+                     user="unix", # your username
                       passwd="123", # your password
                       db="sniffer") # name of the data base
 cur = db.cursor()
@@ -52,7 +52,7 @@ def safe_packet(packet) :
     eth_header = packet[:eth_length]
     eth = unpack('!6s6sH' , eth_header)
     eth_protocol = socket.ntohs(eth[2])
-    print 'Destination MAC : ' + eth_addr(packet[0:6]) + ' Source MAC : ' + eth_addr(packet[6:12]) + ' Protocol : ' + str(eth_protocol)
+    #print 'Destination MAC : ' + eth_addr(packet[0:6]) + ' Source MAC : ' + eth_addr(packet[6:12]) + ' Protocol : ' + str(eth_protocol)
  
     #Parse IP packets, IP Protocol number = 8
     if eth_protocol == 8 :
@@ -74,7 +74,7 @@ def safe_packet(packet) :
         s_addr = socket.inet_ntoa(iph[8]);
         d_addr = socket.inet_ntoa(iph[9]);
  
-        print 'Version : ' + str(version) + ' IP Header Length : ' + str(ihl) + ' TTL : ' + str(ttl) + ' Protocol : ' + str(protocol) + ' Source Address : ' + str(s_addr) + ' Destination Address : ' + str(d_addr)
+        #print 'Version : ' + str(version) + ' IP Header Length : ' + str(ihl) + ' TTL : ' + str(ttl) + ' Protocol : ' + str(protocol) + ' Source Address : ' + str(s_addr) + ' Destination Address : ' + str(d_addr)
  
         #TCP protocol
         if protocol == 6 :
@@ -90,10 +90,15 @@ def safe_packet(packet) :
             acknowledgement = tcph[3]
             doff_reserved = tcph[4]
             tcph_length = doff_reserved >> 4
-             
-            print 'Source Port : ' + str(source_port) + ' Dest Port : ' + str(dest_port) + ' Sequence Number : ' + str(sequence) + ' Acknowledgement : ' + str(acknowledgement) + ' TCP header length : ' + str(tcph_length)
+            
+
+            #print 'Source Port : ' + str(source_port) + ' Dest Port : ' + str(dest_port) + ' Sequence Number : ' + str(sequence) + ' Acknowledgement : ' + str(acknowledgement) + ' TCP header length : ' + str(tcph_length)
             # Use all the SQL you like
-            if source_port != 22 :
+            if source_port != 22 and dest_port != 22:
+                print 'Destination MAC : ' + eth_addr(packet[0:6]) + ' Source MAC : ' + eth_addr(packet[6:12]) + ' Protocol : ' + str(eth_protocol)
+                print 'Version : ' + str(version) + ' IP Header Length : ' + str(ihl) + ' TTL : ' + str(ttl) + ' Protocol : ' + str(protocol) + ' Source Address : ' + str(s_addr) + ' Destination Address : ' + str(d_addr)
+                print 'Source Port : ' + str(source_port) + ' Dest Port : ' + str(dest_port) + ' Sequence Number : ' + str(sequence) + ' Acknowledgement : ' + str(acknowledgement) + ' TCP header length : ' + str(tcph_length)
+                print
                 try:
                     # Execute the SQL command
                     cur.execute("INSERT INTO packets(dest_mac, src_mac, interface_protocol, version, ip_hdr_lngt, ttl, ip_protocol, src_adress, dest_adress, src_port, dest_port, seq_num, acknowledgement, tcp_header_lngt) VALUES ('%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s')" % (eth_addr(packet[0:6]), eth_addr(packet[6:12]), str(eth_protocol), str(version), str(ihl), str(ttl), str(protocol), str(s_addr), str(d_addr), str(source_port), str(dest_port), str(sequence), str(acknowledgement), str(tcph_length)))
@@ -111,8 +116,9 @@ def safe_packet(packet) :
             data = packet[h_size:]
              
             #print 'Data : ' + data
-             
-        print
+        else :
+            print 'protocol is other'
+                  
  
 if __name__ == "__main__":
   main(sys.argv)
