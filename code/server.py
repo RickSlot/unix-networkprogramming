@@ -15,13 +15,17 @@ cur = db.cursor()
 def main(argv):
     devices = pcapy.findalldevs()
     
-    print "Available devices are :"
+    print "Adapter to sniff"
+    adapterList = []
     for d in devices :
     	if d == 'eth0' or d == 'eth1':
+    		adapterList.append(d)
         	print d
-     
-    dev = raw_input("Enter device name to sniff : ")
-     
+    if len(adapterList) != 1:
+    	dev = raw_input("Enter adapter name : ")
+   	else: 
+   		dev = adapterList[0]
+   		
     print "Sniffing device " + dev
      
     '''
