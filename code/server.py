@@ -7,8 +7,8 @@ import MySQLdb
 
 db = MySQLdb.connect(host="localhost",
                      user="unix", 
-                      passwd="123",
-                      db="sniffer") 
+                     passwd="123",
+                     db="sniffer") 
 cur = db.cursor()
 
 
@@ -77,7 +77,6 @@ def safe_packet(packet) :
             t = iph_length + eth_length
             tcp_header = packet[t:t+20]
  
-            #now unpack them :)
             tcph = unpack('!HHLLBBHHH' , tcp_header)
              
             source_port = tcph[0]
@@ -106,7 +105,39 @@ def safe_packet(packet) :
              
             #get data from the packet
             data = packet[h_size:]
-     
+        # udp protocol
+        elif protocol == 17 :
+            u = iph_length + eth_length
+            udph_length = 8
+            udp_header = packet[u:u+8]
+
+            #now unpack them :)
+            udph = unpack('!HHHH' , udp_header)
+            
+            source_port = udph[0]
+            dest_port = udph[1]
+            length = udph[2]
+            checksum = udph[3]
+            
+            print 'Source Port : ' + str(source_port) + ' Dest Port : ' + str(dest_port) + ' Length : ' + str(length) + ' Checksum : ' + str(checksum)
+            
+            try:
+                # Execute the SQL command
+                cur.execute("INSERT INTO packetsudp(src_port, dest_port, length, checksum) VALUES ('%s', '%s', '%s', '%s')" % (str(source_port), str(dest_port), str(length), str(checksum)))
+                db.commit()
+            except:
+                print 'exception'
+                db.rollback()
+
+            h_size = eth_length + iph_length + udph_length
+            data_size = len(packet) - h_size
+            
+            #get data from the packet
+            data = packet[h_size:]
+            
+            print 'Data : ' + data
+
+
         else :
             print 'protocol is other'
                   
