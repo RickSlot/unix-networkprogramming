@@ -5,10 +5,10 @@ import pcapy
 import sys
 import MySQLdb
 
-db = MySQLdb.connect(host="localhost", # your host, usually localhost
-                     user="unix", # your username
-                      passwd="123", # your password
-                      db="sniffer") # name of the data base
+db = MySQLdb.connect(host="localhost",
+                     user="unix", 
+                      passwd="123",
+                      db="sniffer") 
 cur = db.cursor()
 
 
@@ -17,7 +17,8 @@ def main(argv):
     
     print "Available devices are :"
     for d in devices :
-        print d
+    	if d == 'eth0' or d == 'eth1':
+        	print d
      
     dev = raw_input("Enter device name to sniff : ")
      
