@@ -111,6 +111,8 @@
 		var idTcp = 0;
 		var idUdp = 0;
 		function getData() {
+			idTcp += 1;
+			idUdp += 1;
 			$.ajax({
 				type : 'POST',
 				url  : 'controller.php',
