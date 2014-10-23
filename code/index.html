@@ -116,12 +116,15 @@
 				url  : 'controller.php',
 				async : true,
 				cache : false,
-				data : {'idTcp' : idTcp, "idUdp" : idUdp},
+				data : {'idTcp' : idTcp, 'idUdp' : idUdp},
 
 				success : function(data) {
 					var json = JSON.parse(data);
+					console.log(data);
 					idTcp  = json.idTcp;
+					console.log(idTcp);
 					idUdp = json.idUdp;
+					console.log(idUdp);
 					$('#addHereTcp').prepend(json.datatcp);
 					$('#addHereUdp').prepend(json.dataudp);
 				}		
