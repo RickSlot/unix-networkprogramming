@@ -72,7 +72,7 @@
 									</th>
 								</tr>
 							</thead>
-							<tbody id="addHere"></tbody>
+							<tbody id="addHereTcp"></tbody>
 						</table>
 					</div>
 					<div id="udp" class="tab-pane">
@@ -83,26 +83,20 @@
 										<span>ID</span>
 									</th>
 									<th>
-										<span>Destination MAC</span>
+										<span>Source Port</span>
 									</th>
 									<th>
-										<span>Source MAC</span>
+										<span>Destination Port</span>
 									</th>
 									<th>
-										<span>Interface Protocol</span>
+										<span>Length</span>
 									</th>
 									<th>
-										<span>Version</span>
-									</th>
-									<th>
-										<span>IP Header Length</span>
-									</th>
-									<th>
-										<span>TTL</span>
+										<span>Chechsum</span>
 									</th>
 								</tr>
 							</thead>
-							<tbody id="addHere"></tbody>
+							<tbody id="addHereUdp"></tbody>
 						</table>
 					</div>
 				</div>
@@ -126,7 +120,8 @@
 				success : function(data) {
 					var json = JSON.parse(data);
 					id  = json.id;
-					$('#addHere').prepend(json.data);
+					$('#addHereTcp').prepend(json.datatcp);
+					$('#addHereUdp').prepend(json.dataudp);
 				}		
 			});
 		}
