@@ -90,7 +90,7 @@ def safe_packet(packet) :
                 #print 'Destination MAC : ' + eth_addr(packet[0:6]) + ' Source MAC : ' + eth_addr(packet[6:12]) + ' Protocol : ' + str(eth_protocol)
                 #print 'Version : ' + str(version) + ' IP Header Length : ' + str(ihl) + ' TTL : ' + str(ttl) + ' Protocol : ' + str(protocol) + ' Source Address : ' + str(s_addr) + ' Destination Address : ' + str(d_addr)
                 #print 'Source Port : ' + str(source_port) + ' Dest Port : ' + str(dest_port) + ' Sequence Number : ' + str(sequence) + ' Acknowledgement : ' + str(acknowledgement) + ' TCP header length : ' + str(tcph_length)
-                print
+                #print
                 try:
                     # Execute the SQL command
                     cur.execute("INSERT INTO packets(dest_mac, src_mac, interface_protocol, version, ip_hdr_lngt, ttl, ip_protocol, src_adress, dest_adress, src_port, dest_port, seq_num, acknowledgement, tcp_header_lngt) VALUES ('%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s')" % (eth_addr(packet[0:6]), eth_addr(packet[6:12]), str(eth_protocol), str(version), str(ihl), str(ttl), str(protocol), str(s_addr), str(d_addr), str(source_port), str(dest_port), str(sequence), str(acknowledgement), str(tcph_length)))
@@ -122,7 +122,7 @@ def safe_packet(packet) :
             
             try:
                 # Execute the SQL command
-                cur.execute("INSERT INTO packetsudp(src_port, dest_port, length, checksum) VALUES ('%s', '%s', '%s', '%s')" % (str(source_port), str(dest_port), str(length), str(checksum)))
+                cur.execute("INSERT INTO packetsudp(src_port, src_adress, dest_port, dest_adress, interface_protocol, version, length, checksum, ttl) VALUES ('%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s')" % (str(source_port), str(s_addr), str(dest_port), str(d_addr), str(eth_protocol), str(version), str(length), str(checksum), str(ttl)))
                 db.commit()
             except:
                 print 'exception'
