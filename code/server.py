@@ -27,13 +27,10 @@ def main(argv):
    	dev = adapterList[0]
     # open selected device     
     cap = pcapy.open_live(dev , 65536 , 1 , 0)
-
-    cap.setfilter("udp");
-    cap.setfilter("tcp");
  
     # start packets sniffing
     try:
-        while(True) :
+        while 1:
             (header, packet) = cap.next()
             safe_packet(packet)
     except KeyboardInterrupt:
@@ -74,7 +71,6 @@ def safe_packet(packet) :
         protocol = iph[6]
         s_addr = socket.inet_ntoa(iph[8]);
         d_addr = socket.inet_ntoa(iph[9]);
-        print protocol
         #TCP protocol
         if protocol == 6 :
             t = iph_length + eth_length
