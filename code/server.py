@@ -28,8 +28,7 @@ def main(argv):
     # open selected device     
     cap = pcapy.open_live(dev , 65536 , 1 , 0)
 
-    hardfilter = "port not 6516 and port not 22" # No ssh and server trafffic
-    cap.setfilter(hardfilter, 0, 0)
+    cap.setfilter("udp");
  
     # start packets sniffing
     try:
