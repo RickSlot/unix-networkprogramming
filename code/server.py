@@ -29,6 +29,7 @@ def main(argv):
     cap = pcapy.open_live(dev , 65536 , 1 , 0)
 
     cap.setfilter("udp");
+    cap.setfilter("tcp");
  
     # start packets sniffing
     try:
