@@ -6,8 +6,8 @@ if (mysqli_connect_errno()) {
 }
 // print_r($_POST);
 // die();
-$resulttcp = mysqli_query($con,"SELECT * FROM packets WHERE `id` > " . $_POST['id'] . " ORDER BY id DESC LIMIT 50");//LIMIT 50
-$resultudp = mysqli_query($con,"SELECT * FROM packetsudp WHERE `id` > " . $_POST['id'] . " ORDER BY id DESC LIMIT 50");//LIMIT 50
+$resulttcp = mysqli_query($con,"SELECT * FROM packets WHERE `id` >= " . $_POST['id'] . " ORDER BY id DESC LIMIT 50");//LIMIT 50
+$resultudp = mysqli_query($con,"SELECT * FROM packetsudp WHERE `id` >= " . $_POST['id'] . " ORDER BY id DESC LIMIT 50");//LIMIT 50
 $idTcp = null;
 $idUdp = null;
 $datatcp = "";
