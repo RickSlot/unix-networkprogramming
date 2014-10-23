@@ -6,16 +6,17 @@ if (mysqli_connect_errno()) {
 }
 // print_r($_POST);
 // die();
-$resulttcp = mysqli_query($con,"SELECT * FROM packets WHERE `id` >= " . $_POST['id'] . " ORDER BY id DESC LIMIT 50");//LIMIT 50
-$resultudp = mysqli_query($con,"SELECT * FROM packetsudp WHERE `id` >= " . $_POST['id'] . " ORDER BY id DESC LIMIT 50");//LIMIT 50
-$id = null;
+$resulttcp = mysqli_query($con,"SELECT * FROM packets WHERE `id` > " . $_POST['id'] . " ORDER BY id DESC LIMIT 50");//LIMIT 50
+$resultudp = mysqli_query($con,"SELECT * FROM packetsudp WHERE `id` > " . $_POST['id'] . " ORDER BY id DESC LIMIT 50");//LIMIT 50
+$idTcp = null;
+$idUdp = null;
 $datatcp = "";
 $dataudp = "";
 $only_once = true;
 
 while($row = mysqli_fetch_array($resulttcp)) {
-	if($id == null) {
-		$id = $row['id'];
+	if($idTcp == null) {
+		$idTcp = $row['id'];
 	}
 
 	$datatcp .= "<tr>";
@@ -31,8 +32,8 @@ while($row = mysqli_fetch_array($resulttcp)) {
 }
 
 while($row = mysqli_fetch_array($resultudp)) {
-	if($id == null) {
-		$id = $row['id'];
+	if($idUdp == null) {
+		$idUdp = $row['id'];
 	}
 
 	$dataudp .= "<tr>";
@@ -49,7 +50,8 @@ while($row = mysqli_fetch_array($resultudp)) {
 
 
 $json = array();
-$json['id'] = $id;
+$json['idTcp'] = $idTcp;
+$json['idUdp'] = $idUdp;
 $json['datatcp'] = $datatcp;
 $json['dataudp'] = $dataudp;
 echo json_encode($json);

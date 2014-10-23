@@ -108,18 +108,20 @@
 			$('#tabs').tab();
 		});
 
-		var id = 0;
+		var idTcp = 0;
+		var idUdp = 0;
 		function getData() {
 			$.ajax({
 				type : 'POST',
 				url  : 'controller.php',
 				async : true,
 				cache : false,
-				data : {'id' : id},
+				data : {'idTcp' : idTcp, "idUdp" : idUdp},
 
 				success : function(data) {
 					var json = JSON.parse(data);
-					id  = json.id;
+					idTcp  = json.idTcp;
+					idUdp = json.idUdp;
 					$('#addHereTcp').prepend(json.datatcp);
 					$('#addHereUdp').prepend(json.dataudp);
 				}		
