@@ -13,12 +13,12 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-lg-12">
-			<div id="tabs">
+			<div id="tabs" class="nav nav-tabs" data-tabs"tabs">
 				<ul>
-					<li><a href="#tcp">TCP</a></li>
-					<li><a href="#udp">UDP</a></li>
+					<li class="active"><a href="#tcp" data-toggle"tabs">TCP</a></li>
+					<li><a href="#udp" data-toggle"tabs">UDP</a></li>
 				</ul>
-				<div id="tcp">
+				<div id="tcp" class="tab-pane active">
 					<table class="table table-no-border table-hover">
 						<thead>
 							<tr>
@@ -75,7 +75,7 @@
 						<tbody id="addHere"></tbody>
 					</table>
 				</div>
-				<div id="udp">
+				<div id="udp" class="tab-pane">
 					<table class="table table-no-border table-hover">
 						<thead>
 							<tr>
@@ -102,7 +102,7 @@
 								</th>
 							</tr>
 						</thead>
-						<tbody id="addHere"></tbody>
+						<tbody id="addHereudp"></tbody>
 					</table>
 				</div>
 				</div>
@@ -111,9 +111,7 @@
 	</div>
 	<script type="text/javascript">
 
-		$(function() {
-			$( "#tabs" ).tabs();
-		});
+		
 
 		var id = 0;
 		function getData() {
@@ -133,6 +131,7 @@
 		}
 
 		$(document).ready(function(){
+			$( "#tabs" ).tabs();
 			getData();
 			setInterval(getData, 1000);
 		});
