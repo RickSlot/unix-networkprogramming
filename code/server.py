@@ -27,7 +27,7 @@ def main(argv):
    	dev = adapterList[0]
 
 
-    # open_live(apparaat, maximum-packet-lengte-in-bytes, promiscious_mode, timeout)
+    #open_live(apparaat, maximum-packet-lengte-in-bytes, promiscious_mode, timeout)
     #promiscious mode: Normaal gesproken ontvangt een netwerk interface alleen de packets die geadresseerd zijn aan die interface. In promiscious mode
     #onderschept hij alle pakketjes die hij langs ziet komen, of ze nou aan hem geadresseerd zijn of niet
     cap = pcapy.open_live(dev , 65536 , 1 , 0) #
@@ -139,7 +139,7 @@ def safe_packet(packet) :
             
             try:
                 # Execute the SQL command
-                cur.execute("INSERT INTO packetsudp(src_port, src_adress, dest_port, dest_adress, interface_protocol, version, length, checksum, ttl) VALUES ('%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s')" % (str(source_port), str(s_addr), str(dest_port), str(d_addr), str(eth_protocol), str(version), str(length), str(checksum), str(ttl)q))
+                cur.execute("INSERT INTO packetsudp(src_port, src_adress, dest_port, dest_adress, interface_protocol, version, length, checksum, ttl) VALUES ('%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s')" % (str(source_port), str(s_addr), str(dest_port), str(d_addr), str(eth_protocol), str(version), str(length), str(checksum), str(ttl)))
                 db.commit()
             except:
                 print 'exception'
