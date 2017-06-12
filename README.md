@@ -1,8 +1,5 @@
 unix-networkprogramming
 =======================
-
-vet cool dit haha, rick is een flikker
-
 Links
 =======================
 http://www.ibm.com/developerworks/library/l-twist1/
